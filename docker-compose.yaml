@@ -13,3 +13,39 @@ services:
       - "3000:3000"
     depends_on:
       - back
+    # networks:
+    #   - chatminou_network
+
+  # back:
+  #   container_name: dashboard_back
+  #   env_file: ./back/.env
+  #   image: node:16-alpine
+  #   command: yarn start:dev
+  #   working_dir: /app
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - dashboard_db
+
+  #   volumes:
+  #     - "./dashboard_back:/app"
+    # networks:
+    #   - dashboard_network
+
+  # dashboard_db:
+  #   container_name: dashboard_db
+  #   env_file: ./dashboard_back/.env
+  #   image: postgres:12-alpine
+  #   ports:
+  #     - "5432:5432"
+  #   # networks:
+  #   #   - chatminou_network
+  #   volumes:
+  #     - chatminou_pg_volume:/var/lib/postgresql/data/
+
+
+# networks:
+#   chatminou_network:
+
+# volumes:
+#   chatminou_pg_volume:
