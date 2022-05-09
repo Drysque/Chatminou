@@ -28,7 +28,7 @@ export const Login = (): JSX.Element => {
 
 	useEffect(() => {
 		isLoginSuccess && history.push('/');
-		isLoginError && toast({ title: 'User not found', description: 'Wrong username or tag' });
+		isLoginError && toast({ title: 'User not found', description: 'Wrong username or tag', status: 'error' });
 	}, [history, isLoginError, isLoginSuccess, toast]);
 
 	const submit = () => dispatch(setTagline({ name, tag }));
