@@ -1,4 +1,4 @@
-default: install up
+default: install upd
 
 build:
 	docker-compose build
