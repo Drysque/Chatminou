@@ -4,48 +4,28 @@ services:
   front:
     container_name: front
     image: node:16-alpine
-    env_file: ./front/.env
     working_dir: /app
     command: yarn start
     volumes:
       - "./front:/app"
     ports:
       - "3000:3000"
-    # depends_on:
-    #   - back
-    # networks:
-    #   - chatminou_network
+    depends_on:
+      - back
+    networks:
+      - chatminou_network
 
-  # back:
-  #   container_name: dashboard_back
-  #   env_file: ./back/.env
-  #   image: node:16-alpine
-  #   command: yarn start:dev
-  #   working_dir: /app
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     - dashboard_db
+  back:
+    container_name: back
+    image: node:16-alpine
+    command: yarn start:dev
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./back:/app"
+    networks:
+      - dashboard_network
 
-  #   volumes:
-  #     - "./dashboard_back:/app"
-    # networks:
-    #   - dashboard_network
-
-  # dashboard_db:
-  #   container_name: dashboard_db
-  #   env_file: ./dashboard_back/.env
-  #   image: postgres:12-alpine
-  #   ports:
-  #     - "5432:5432"
-  #   # networks:
-  #   #   - chatminou_network
-  #   volumes:
-  #     - chatminou_pg_volume:/var/lib/postgresql/data/
-
-
-# networks:
-#   chatminou_network:
-
-# volumes:
-#   chatminou_pg_volume:
+networks:
+  chatminou_network:
