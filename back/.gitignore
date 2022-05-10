@@ -1,2 +1,3 @@
-# dependencies
+# compiled outputs
 /node_modules
+/dist
