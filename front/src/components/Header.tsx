@@ -1,32 +1,40 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/react';
+import { Avatar, Box, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-import { PantoufleIcon } from 'assets/Pantoufle';
-import { useGetUserQuery } from 'services/requests/auth';
+import { useGetAccountQuery } from 'services/henrikApi/account';
+import { useAppSelector } from 'services/hooks';
 
 export const Header = (): JSX.Element => {
-	const { data: user } = useGetUserQuery();
+	const tagline = useAppSelector((state) => state.auth.tagline);
+	const { isSuccess, isLoading, data: account } = useGetAccountQuery(tagline!, { skip: !tagline });
 
 	return (
 		<VStack w="100%" align="start">
-			<HStack w="100%" justify="space-between" bg="pantoufle.secondary" p="8px 16px">
+			<HStack w="100%" justify="space-between" bg="chatminou.secondary" p="8px 16px">
 				<Box bg="white" border="base" borderRadius="15px">
 					<Link to="/">
 						<HStack m="5px 10px">
-							<PantoufleIcon w={12} h={10} fill="pantoufle.primary" />
-							<Text color="pantoufle.primary" fontSize="18px">
-								Pantoufle
+							<Text>/Logo/</Text>
+							<Text color="chatminou.primary" fontSize="18px">
+								Chatminou
 							</Text>
 						</HStack>
 					</Link>
 				</Box>
-				{user ? (
+				{isSuccess ? (
 					<Link to="/profile">
-						<Text color="white">{user.name}</Text>
+						<HStack align="center">
+							<Avatar name={account.name} src={account.card.small} />
+							<Text color="white">
+								{account.name}#{account.tag}
+							</Text>
+						</HStack>
 					</Link>
+				) : isLoading ? (
+					<Spinner size="sm" />
 				) : (
 					<Link to="/login">
-						<Text color="pantoufle.accent" fontWeight={600}>
+						<Text color="chatminou.accent" fontWeight={600}>
 							Login
 						</Text>
 					</Link>

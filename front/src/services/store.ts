@@ -1,14 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { valorantApi } from 'services/apiService';
+import { henrikApi } from './henrikApi/apiService';
+import authReducer from './slices/auth.slice';
 
 const reducers = combineReducers({
-	[valorantApi.reducerPath]: valorantApi.reducer,
+	[henrikApi.reducerPath]: henrikApi.reducer,
+	auth: authReducer,
 });
 
 const store = configureStore({
 	reducer: reducers,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(valorantApi.middleware),
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(henrikApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
