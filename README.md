@@ -1,5 +1,7 @@
 # Chatminou
 
+This project is Work in Progress !
+
 ## Launch locally
 
 Prerequisites:
